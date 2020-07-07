@@ -9,6 +9,6 @@
  - mongoose
  
  ## Run server
-´´´
+```
  npm run dev
-´´´
+```
