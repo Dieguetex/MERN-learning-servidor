@@ -1,5 +1,6 @@
 const Proyecto = require("../models/Proyecto");
 const { validationResult } = require("express-validator");
+const Tarea = require("../models/Tarea");
 
 exports.crearProyecto = async (req, res) => {
   // Revisar si hay errores
@@ -103,6 +104,8 @@ exports.eliminarProyecto = async (req, res) => {
     if (proyecto.creador.toString() !== req.usuario.id) {
       return res.status(401).json({ msg: "No autorizado" });
     }
+
+    await Tarea.deleteMany({ proyecto: req.params.id });
 
     // Eliminar proyecto
     await Proyecto.findOneAndRemove({ _id: req.params.id });
